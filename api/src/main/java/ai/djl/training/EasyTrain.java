@@ -81,7 +81,7 @@ public final class EasyTrain {
      * @param batch a {@link Batch} that contains data, and its respective labels
      * @throws IllegalArgumentException if the batch engine does not match the trainer engine
      */
-    public static void trainBatch(Trainer trainer, Batch batch) {
+    public static BatchData trainBatch(Trainer trainer, Batch batch) {
         if (trainer.getManager().getEngine() != batch.getManager().getEngine()) {
             throw new IllegalArgumentException(
                     "The data must be on the same engine as the trainer. You may need to change one of your NDManagers.");
@@ -106,6 +106,7 @@ public final class EasyTrain {
         }
 
         trainer.notifyListeners(listener -> listener.onTrainingBatch(trainer, batchData));
+        return batchData;
     }
 
     /**
